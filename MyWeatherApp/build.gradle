@@ -21,3 +21,18 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext {
+    //sdk and tools
+    minSdkVersion = 21
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+    supportLibraryVersion = '25.3.1'
+
+    junitVersion = '4.12'
+    retrofitVersion = '2.3.0'
+    daggerAnnotationsVersion = '2.9'
+    javaxVersion = '1.0'
+    gsonVersion = '2.4'
+    daggerVersion = '2.9'
+}
