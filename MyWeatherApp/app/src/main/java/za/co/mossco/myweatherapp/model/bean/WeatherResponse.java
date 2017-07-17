@@ -1,6 +1,5 @@
-package za.co.mossco.myweatherapp.data.bean;
+package za.co.mossco.myweatherapp.model.bean;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
