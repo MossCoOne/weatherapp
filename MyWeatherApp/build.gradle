@@ -35,4 +35,5 @@ ext {
     javaxVersion = '1.0'
     gsonVersion = '2.4'
     daggerVersion = '2.9'
+    constraintLayoutVersion = '1.0.0'
 }

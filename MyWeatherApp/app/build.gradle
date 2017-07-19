@@ -24,7 +24,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    // compile 'com.android.support.constraint:constraint-layout:1.0.0'
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
@@ -34,4 +33,5 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerAnnotationsVersion"
     provided "javax.annotation:jsr250-api:$rootProject.ext.javaxVersion"
     compile group: 'com.google.code.gson', name: 'gson', version: "$rootProject.ext.gsonVersion"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
