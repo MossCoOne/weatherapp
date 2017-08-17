@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WeatherServiceApiClient {
-
+    private static String OPEN_WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/";
     private static WeatherServiceApi weatherServiceApi;
     private WeatherServiceApiClient() {
 
@@ -20,7 +20,7 @@ public class WeatherServiceApiClient {
             Gson gson = new GsonBuilder()
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl("")
+                    .baseUrl(OPEN_WEATHER_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             weatherServiceApi = retrofit.create(WeatherServiceApi.class);
