@@ -6,10 +6,11 @@ import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import za.co.mossco.myweatherapp.utility.Constants;
 
 public class WeatherServiceApiClient {
-    private static String OPEN_WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/";
     private static WeatherServiceApi weatherServiceApi;
+
     private WeatherServiceApiClient() {
 
     }
@@ -20,12 +21,11 @@ public class WeatherServiceApiClient {
             Gson gson = new GsonBuilder()
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(OPEN_WEATHER_BASE_URL)
+                    .baseUrl(Constants.OPEN_WEATHER_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             weatherServiceApi = retrofit.create(WeatherServiceApi.class);
         }
-
         return weatherServiceApi;
     }
 }
