@@ -1,88 +1,65 @@
 package za.co.mossco.myweatherapp.model.bean;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import za.co.mossco.myweatherapp.model.bean.List;
+
 
 public class WeatherResponse {
-    @SerializedName("dt")
-    private Integer dt;
-    @SerializedName("main")
-    private Main main;
-    @SerializedName("weather")
-    private List<Weather> weather = null;
-    @SerializedName("clouds")
-    private Clouds clouds;
-    @SerializedName("wind")
-    private Wind wind;
-    @SerializedName("snow")
-    private Snow snow;
-    @SerializedName("sys")
-    private Sys sys;
-    @SerializedName("dt_txt")
-    private String dtTxt;
+    @SerializedName("city")
+    @Expose
+    private City city;
+    @SerializedName("cod")
+    @Expose
+    private String cod;
+    @SerializedName("message")
+    @Expose
+    private Double message;
+    @SerializedName("cnt")
+    @Expose
+    private Integer cnt;
+    @SerializedName("list")
+    @Expose
+    private java.util.List<za.co.mossco.myweatherapp.model.bean.List> list = null;
 
-    public Integer getDt() {
-        return dt;
+    public City getCity() {
+        return city;
     }
 
-    public void setDt(Integer dt) {
-        this.dt = dt;
+    public void setCity(City city) {
+        this.city = city;
     }
 
-    public Main getMain() {
-        return main;
+    public String getCod() {
+        return cod;
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 
-    public List<Weather> getWeather() {
-        return weather;
+    public Double getMessage() {
+        return message;
     }
 
-    public void setWeather(List<Weather> weather) {
-        this.weather = weather;
+    public void setMessage(Double message) {
+        this.message = message;
     }
 
-    public Clouds getClouds() {
-        return clouds;
+    public Integer getCnt() {
+        return cnt;
     }
 
-    public void setClouds(Clouds clouds) {
-        this.clouds = clouds;
+    public void setCnt(Integer cnt) {
+        this.cnt = cnt;
     }
 
-    public Wind getWind() {
-        return wind;
+    public java.util.List<za.co.mossco.myweatherapp.model.bean.List> getList() {
+        return list;
     }
 
-    public void setWind(Wind wind) {
-        this.wind = wind;
-    }
-
-    public Snow getSnow() {
-        return snow;
-    }
-
-    public void setSnow(Snow snow) {
-        this.snow = snow;
-    }
-
-    public Sys getSys() {
-        return sys;
-    }
-
-    public void setSys(Sys sys) {
-        this.sys = sys;
-    }
-
-    public String getDtTxt() {
-        return dtTxt;
-    }
-
-    public void setDtTxt(String dtTxt) {
-        this.dtTxt = dtTxt;
+    public void setList(java.util.List<za.co.mossco.myweatherapp.model.bean.List> list) {
+        this.list = list;
     }
 }
