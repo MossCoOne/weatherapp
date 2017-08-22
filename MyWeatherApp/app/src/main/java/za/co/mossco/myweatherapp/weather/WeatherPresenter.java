@@ -1,8 +1,6 @@
 package za.co.mossco.myweatherapp.weather;
 
 
-import java.util.List;
-
 import za.co.mossco.myweatherapp.model.WeatherRepository;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 
@@ -18,10 +16,12 @@ public class WeatherPresenter implements WeatherContract.UserActionsListener {
 
     @Override
     public void loadWeather(String cityName) {
+        weatherView.showProgressDialog();
         weatherRepository.getWeatherByCityName(cityName, new WeatherRepository.WeatherDataCallback() {
             @Override
-            public void onWeatherDataLoaded(List<WeatherResponse> weatherResponseList) {
-                weatherView.showWeather(weatherResponseList);
+            public void onWeatherDataLoaded(java.util.List<WeatherResponse> responseList) {
+                weatherView.showWeather(responseList);
+                weatherView.dismissProgressDialog();
             }
 
             @Override
