@@ -9,8 +9,8 @@ import retrofit2.http.Query;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 
 public interface WeatherServiceApi {
-    @GET("weather?")
-    Call<List<WeatherResponse>> getWeatherByCity(@Query("q") String cityName,
-                                                 @Query("appid") String appId);
+    @GET("daily?")
+    Call<WeatherResponse> getWeatherByCity(@Query("q") String cityName,
+                                           @Query("appid") String appId);
 }
 
