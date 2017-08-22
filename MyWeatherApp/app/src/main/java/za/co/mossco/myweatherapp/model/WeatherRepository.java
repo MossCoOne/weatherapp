@@ -7,7 +7,7 @@ import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 public interface WeatherRepository {
 
     interface WeatherDataCallback {
-        void onWeatherDataLoaded(List<WeatherResponse> weatherResponseList);
+        void onWeatherDataLoaded(List<WeatherResponse> listList);
 
         void onErrorOccurred(int errorCode);
     }
