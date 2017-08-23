@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateUtil {
-    public static String getCurrentDate(Integer unixSeconds) {
+    public static String getCurrentDayOfWeek(Integer unixSeconds) {
         Date date = new Date(unixSeconds * 1000L);
         String formattedDate = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()); // the format of your date
         return formattedDate;

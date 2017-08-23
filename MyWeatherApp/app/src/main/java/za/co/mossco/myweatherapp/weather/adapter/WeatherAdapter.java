@@ -6,11 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.utility.DateUtil;
@@ -35,13 +31,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         final za.co.mossco.myweatherapp.model.bean.List currentWeather = dailyWeatherList.get(position);
         if (position == 0) {
-            holder.dateTextView.setText("Today");
+            holder.dateTextView.setText(R.string.today_text);
+        } else if (position == 1) {
+            holder.dateTextView.setText(R.string.tomorrow_text);
         } else {
-            holder.dateTextView.setText(DateUtil.getCurrentDate(currentWeather.getDt()));
+            holder.dateTextView.setText(DateUtil.getCurrentDayOfWeek(currentWeather.getDt()));
         }
         holder.weatherDescriptionTextView.setText(currentWeather.getWeather().get(0).getDescription());
-        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()));
-        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin()));
+        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()) + "\u2103");
+        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin())+ "\u2103");
         String main = currentWeather.getWeather().get(0).getMain();
 
         if (main.equalsIgnoreCase("Clear")) {
