@@ -6,9 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import za.co.mossco.myweatherapp.R;
+import za.co.mossco.myweatherapp.utility.DateUtil;
 
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
@@ -29,10 +34,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         final za.co.mossco.myweatherapp.model.bean.List currentWeather = dailyWeatherList.get(position);
-        holder.dateTextView.setText(currentWeather.getDt().toString());
+        if (position == 0) {
+            holder.dateTextView.setText("Today");
+        } else {
+            holder.dateTextView.setText(DateUtil.getCurrentDate(currentWeather.getDt()));
+        }
         holder.weatherDescriptionTextView.setText(currentWeather.getWeather().get(0).getDescription());
-        holder.highTemperatureTextView.setText(toCelcius(currentWeather.getTemp().getMax()));
-        holder.lowTemperatureTextView.setText(toCelcius(currentWeather.getTemp().getMin()));
+        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()));
+        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin()));
         String main = currentWeather.getWeather().get(0).getMain();
 
         if (main.equalsIgnoreCase("Clear")) {
@@ -43,12 +52,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
 
     }
 
-    private String toCelcius(double degrees) {
-        return String.valueOf((int) (degrees - 273.15D));
-    }
-
     @Override
     public int getItemCount() {
         return dailyWeatherList.size();
     }
+
+
 }
