@@ -4,11 +4,13 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/touch_selector"
+    android:background="#FFF"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingBottom="@dimen/list_item_padding_vertical"
     android:paddingLeft="@dimen/list_item_padding_horizontal"
     android:paddingRight="@dimen/list_item_padding_horizontal"
+    android:layout_marginBottom="2dp"
+    android:elevation="4dp"
     android:paddingTop="@dimen/list_item_padding_vertical">
 
     <ImageView
@@ -24,8 +26,6 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_item_date_left_margin"
-        android:layout_marginStart="@dimen/list_item_date_start_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintLeft_toRightOf="@+id/weather_icon"
