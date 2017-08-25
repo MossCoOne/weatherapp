@@ -8,4 +8,7 @@
     <string name="please_wait_message">Please wait...</string>
     <string name="today_text">Today</string>
     <string name="tomorrow_text">Tomorrow</string>
+    <string name="humidity_text">Humidity :</string>
+    <string name="pressure_text">Pressure :</string>
+    <string name="wind_speed_text">Wind Speed :</string>
 </resources>

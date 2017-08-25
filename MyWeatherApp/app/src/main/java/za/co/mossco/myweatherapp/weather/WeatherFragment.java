@@ -97,9 +97,8 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
 
     WeatherItemClickListener weatherItemClickListener = new WeatherItemClickListener() {
         @Override
-        public void onConsultantClicked(List clickedConsultant) {
-            Intent intent = new Intent(getContext(), WeatherDetailActivity.class);
-            startActivity(intent);
+        public void onConsultantClicked(za.co.mossco.myweatherapp.model.bean.List clickedWeather) {
+            startActivity(WeatherDetailActivity.getInstance( getContext(),clickedWeather));
         }
     };
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import za.co.mossco.myweatherapp.R;
+import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
 
 
@@ -26,12 +27,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
         Context context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.weather_row, parent, false);
-        return new WeatherViewHolder(view,weatherItemClickListener);
+        return new WeatherViewHolder(view, weatherItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
-        char degreeSymbol = '\u00B0';
         final za.co.mossco.myweatherapp.model.bean.List currentWeather = dailyWeatherList.get(position);
         if (position == 0) {
             holder.dateTextView.setText(R.string.today_text);
@@ -41,15 +41,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
             holder.dateTextView.setText(DateUtil.getCurrentDayOfWeek(currentWeather.getDt()));
         }
         holder.weatherDescriptionTextView.setText(currentWeather.getWeather().get(0).getDescription());
-        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()) + degreeSymbol);
-        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin()) + degreeSymbol);
-        String main = currentWeather.getWeather().get(0).getMain();
-
-        if (main.equalsIgnoreCase("Clear")) {
-            holder.weatherIconImageView.setImageResource(R.drawable.art_clear);
-        } else if (main.equalsIgnoreCase("Rainy")) {
-            holder.weatherIconImageView.setImageResource(R.drawable.ic_light_rain);
-        }
+        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()) + Constants.degreeSymbol);
+        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin()) + Constants.degreeSymbol);
+        holder.weatherIconImageView.setImageResource(DateUtil.setImageIcon(currentWeather.getWeather().get(0).getMain()));
         holder.setCurrentConsultant(currentWeather);
     }
 
