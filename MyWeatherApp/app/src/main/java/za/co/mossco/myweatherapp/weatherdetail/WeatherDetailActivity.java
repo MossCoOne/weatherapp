@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class WeatherDetailActivity extends AppCompatActivity {
     private static String currentWeather = "CurrentWeather";
     za.co.mossco.myweatherapp.model.bean.List currentWeatherList;
     za.co.mossco.myweatherapp.model.bean.List currentWeatherSeleted;
+    private Toolbar toolbar;
 
     public static Intent getInstance(Context context, za.co.mossco.myweatherapp.model.bean.List list) {
         Intent detailIntent = new Intent(context, WeatherDetailActivity.class);
@@ -38,6 +40,11 @@ public class WeatherDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_detail);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         String jsonWeather = getIntent().getStringExtra(currentWeather);
         initializeUI(jsonWeather);
     }
