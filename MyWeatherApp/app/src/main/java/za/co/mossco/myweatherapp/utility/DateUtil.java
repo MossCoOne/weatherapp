@@ -37,7 +37,25 @@ public class DateUtil {
                 iconId = R.drawable.ic_clear;
                 break;
             case "Rain":
-                iconId = R.drawable.ic_light_rain;
+                iconId = R.drawable.ic_rain;
+                break;
+            case "Light Rain":
+               iconId= R.drawable.ic_light_rain;
+                break;
+            case "Cloudy":
+                iconId = R.drawable.ic_cloudy;
+                break;
+            case "Clouds":
+                iconId = R.drawable.ic_light_clouds;
+                break;
+            case "Fog":
+                iconId = R.drawable.ic_fog;
+                break;
+            case "Storm":
+                iconId = R.drawable.ic_storm;
+                break;
+            case "Snow":
+                iconId = R.drawable.ic_snow;
                 break;
 
         }
