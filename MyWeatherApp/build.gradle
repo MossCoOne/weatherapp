@@ -35,5 +35,6 @@ ext {
     javaxVersion = '1.0'
     gsonVersion = '2.4'
     daggerVersion = '2.9'
+    googlePlayServicesVersion = '10.2.1'
     constraintLayoutVersion = '1.0.0'
 }

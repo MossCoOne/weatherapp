@@ -35,4 +35,5 @@ dependencies {
     provided "javax.annotation:jsr250-api:$rootProject.ext.javaxVersion"
     compile group: 'com.google.code.gson', name: 'gson', version: "$rootProject.ext.gsonVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.google.android.gms:play-services-location:$rootProject.ext.googlePlayServicesVersion"
 }

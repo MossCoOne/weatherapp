@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
+import za.co.mossco.myweatherapp.weather.WeatherFragment;
 
 public class WeatherDetailActivity extends AppCompatActivity {
 
@@ -43,6 +44,7 @@ public class WeatherDetailActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.daily_weather));
 
 
         String jsonWeather = getIntent().getStringExtra(currentWeather);
@@ -53,7 +55,7 @@ public class WeatherDetailActivity extends AppCompatActivity {
     void initializeUI(String jsonWeather) {
         currentWeatherSeleted = new Gson().fromJson(jsonWeather, za.co.mossco.myweatherapp.model.bean.List.class);
         TextView detailDay = (TextView) findViewById(R.id.detail_day);
-        detailDay.setText(DateUtil.getCurrentDayOfWeek(currentWeatherSeleted.getDt()));
+        detailDay.setText(DateUtil.getCurrentDayOfWeek(currentWeatherSeleted.getDt()) + " - " + WeatherFragment.LOCATION);
         TextView detailDate = (TextView) findViewById(R.id.detail_date);
         detailDate.setText(DateUtil.getDayAndMonth(currentWeatherSeleted.getDt()));
         TextView detailHighTemperature = (TextView) findViewById(R.id.detail_temperature_high);
