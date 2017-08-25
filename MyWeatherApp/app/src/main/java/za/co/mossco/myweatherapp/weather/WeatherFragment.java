@@ -2,6 +2,7 @@ package za.co.mossco.myweatherapp.weather;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,8 +27,11 @@ import java.util.ArrayList;
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.model.WeatherRepository;
 import za.co.mossco.myweatherapp.model.WeatherRepositoryImpl;
+import za.co.mossco.myweatherapp.model.bean.List;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 import za.co.mossco.myweatherapp.weather.adapter.WeatherAdapter;
+import za.co.mossco.myweatherapp.weather.adapter.WeatherAdapter.WeatherItemClickListener;
+import za.co.mossco.myweatherapp.weatherdetail.WeatherDetailActivity;
 
 
 public class WeatherFragment extends Fragment implements WeatherContract.View {
@@ -68,7 +72,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
 
     @Override
     public void showWeather(java.util.List<WeatherResponse> weatherResponseList) {
-        weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList());
+        weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(),weatherItemClickListener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         weaklyWeatherRecyclerView.setLayoutManager(linearLayoutManager);
@@ -90,4 +94,12 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
         weatherLoadingProgress.dismiss();
     }
 
+
+    WeatherItemClickListener weatherItemClickListener = new WeatherItemClickListener() {
+        @Override
+        public void onConsultantClicked(List clickedConsultant) {
+            Intent intent = new Intent(getContext(), WeatherDetailActivity.class);
+            startActivity(intent);
+        }
+    };
 }

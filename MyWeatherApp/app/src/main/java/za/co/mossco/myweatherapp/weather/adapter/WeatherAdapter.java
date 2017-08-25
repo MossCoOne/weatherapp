@@ -13,10 +13,12 @@ import za.co.mossco.myweatherapp.utility.DateUtil;
 
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
-    public java.util.List<za.co.mossco.myweatherapp.model.bean.List> dailyWeatherList;
+    private java.util.List<za.co.mossco.myweatherapp.model.bean.List> dailyWeatherList;
+    private WeatherItemClickListener weatherItemClickListener;
 
-    public WeatherAdapter(List<za.co.mossco.myweatherapp.model.bean.List> dailyWeatherList) {
+    public WeatherAdapter(List<za.co.mossco.myweatherapp.model.bean.List> dailyWeatherList, WeatherItemClickListener weatherItemClickListener) {
         this.dailyWeatherList = dailyWeatherList;
+        this.weatherItemClickListener = weatherItemClickListener;
     }
 
     @Override
@@ -24,11 +26,12 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
         Context context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.weather_row, parent, false);
-        return new WeatherViewHolder(view);
+        return new WeatherViewHolder(view,weatherItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
+        char degreeSymbol = '\u00B0';
         final za.co.mossco.myweatherapp.model.bean.List currentWeather = dailyWeatherList.get(position);
         if (position == 0) {
             holder.dateTextView.setText(R.string.today_text);
@@ -38,8 +41,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
             holder.dateTextView.setText(DateUtil.getCurrentDayOfWeek(currentWeather.getDt()));
         }
         holder.weatherDescriptionTextView.setText(currentWeather.getWeather().get(0).getDescription());
-        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()) + "\u2103");
-        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin())+ "\u2103");
+        holder.highTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMax()) + degreeSymbol);
+        holder.lowTemperatureTextView.setText(DateUtil.toCelsius(currentWeather.getTemp().getMin()) + degreeSymbol);
         String main = currentWeather.getWeather().get(0).getMain();
 
         if (main.equalsIgnoreCase("Clear")) {
@@ -47,7 +50,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
         } else if (main.equalsIgnoreCase("Rainy")) {
             holder.weatherIconImageView.setImageResource(R.drawable.ic_light_rain);
         }
-
+        holder.setCurrentConsultant(currentWeather);
     }
 
     @Override
@@ -55,5 +58,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
         return dailyWeatherList.size();
     }
 
+    public interface WeatherItemClickListener {
+        void onConsultantClicked(za.co.mossco.myweatherapp.model.bean.List clickedConsultant);
+    }
 
 }

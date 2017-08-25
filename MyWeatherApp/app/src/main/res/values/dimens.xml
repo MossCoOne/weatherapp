@@ -9,7 +9,9 @@
     <dimen name="today_icon">96dp</dimen>
 
     <dimen name="list_icon">40dp</dimen>
-    <dimen name="forecast_text_size">28dp</dimen>
+    <dimen name="forecast_text_size">20dp</dimen>
+    <dimen name="detail_temperature_high_text_size">100dp</dimen>
+    <dimen name="detail_temperature_low_text_size">60dp</dimen>
 
     <dimen name="forecast_temperature_space">4dp</dimen>
 
@@ -31,6 +33,9 @@
 
     <dimen name="list_item_date_left_margin">16dp</dimen>
 
-    <dimen name="list_item_date_start_margin">@dimen/list_item_date_left_margin</dimen>>
+    <dimen name="list_item_date_start_margin">@dimen/list_item_date_left_margin</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>>
 
 </resources>
