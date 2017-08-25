@@ -13,6 +13,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -59,6 +62,10 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
         super.onCreate(savedInstanceState);
         weatherRepository = new WeatherRepositoryImpl();
         weatherPresenter = new WeatherPresenter(this, new WeatherRepositoryImpl());
+        loadWeather();
+    }
+
+    void loadWeather() {
         weatherPresenter.loadWeather("Johannesburg");
     }
 
@@ -74,8 +81,25 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
 
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                loadWeather();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void showWeather(java.util.List<WeatherResponse> weatherResponseList) {
-        weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(),weatherItemClickListener);
+        weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(), weatherItemClickListener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         weaklyWeatherRecyclerView.setLayoutManager(linearLayoutManager);
@@ -101,7 +125,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     WeatherItemClickListener weatherItemClickListener = new WeatherItemClickListener() {
         @Override
         public void onConsultantClicked(za.co.mossco.myweatherapp.model.bean.List clickedWeather) {
-            startActivity(WeatherDetailActivity.getInstance( getContext(),clickedWeather));
+            startActivity(WeatherDetailActivity.getInstance(getContext(), clickedWeather));
         }
     };
 
