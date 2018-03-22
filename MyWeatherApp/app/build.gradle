@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "za.co.mossco.myweatherapp"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -17,6 +16,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -30,10 +32,11 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
     testCompile "junit:junit:$rootProject.ext.junitVersion"
+    testCompile "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
     compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerAnnotationsVersion"
     provided "javax.annotation:jsr250-api:$rootProject.ext.javaxVersion"
     compile group: 'com.google.code.gson', name: 'gson', version: "$rootProject.ext.gsonVersion"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
     compile "com.google.android.gms:play-services-location:$rootProject.ext.googlePlayServicesVersion"
 }
