@@ -19,7 +19,7 @@ public class WeatherPresenter implements WeatherContract.UserActionsListener {
         weatherView.showProgressDialog();
         weatherRepository.getWeatherByCityName(cityName, new WeatherRepository.WeatherDataCallback() {
             @Override
-            public void onWeatherDataLoaded(java.util.List<WeatherResponse> responseList) {
+            public void displayLoadedWeather(java.util.List<WeatherResponse> responseList) {
                 weatherView.showWeather(responseList);
                 weatherView.dismissProgressDialog();
             }

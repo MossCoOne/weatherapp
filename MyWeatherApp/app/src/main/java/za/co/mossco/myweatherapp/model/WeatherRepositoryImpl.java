@@ -21,15 +21,14 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
     @Override
     public void getWeatherByCityName(String cityName, final WeatherDataCallback weatherDataCallback) {
-        weatherServiceApi
-                .getWeatherByCity(cityName, Constants.APP_ID)
+        weatherServiceApi.getWeatherByCity(cityName, Constants.APP_ID)
                 .enqueue(new Callback<WeatherResponse>() {
                     @Override
                     public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                        java.util.List<WeatherResponse> responseList = new ArrayList<WeatherResponse>();
-                        if (response.isSuccessful()) {
+                        List<WeatherResponse> responseList = new ArrayList<>();
+                        if (response.isSuccessful() ) {
                             responseList.add(response.body());
-                            weatherDataCallback.onWeatherDataLoaded(responseList);
+                            weatherDataCallback.displayLoadedWeather(responseList);
                         }
                     }
 
