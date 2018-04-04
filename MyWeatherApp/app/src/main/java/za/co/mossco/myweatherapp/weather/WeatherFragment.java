@@ -2,11 +2,8 @@ package za.co.mossco.myweatherapp.weather;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,22 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 import za.co.mossco.myweatherapp.R;
-import za.co.mossco.myweatherapp.model.WeatherRepository;
-import za.co.mossco.myweatherapp.model.WeatherRepositoryImpl;
-import za.co.mossco.myweatherapp.model.bean.List;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 import za.co.mossco.myweatherapp.weather.adapter.WeatherAdapter;
 import za.co.mossco.myweatherapp.weather.adapter.WeatherAdapter.WeatherItemClickListener;
@@ -38,10 +21,8 @@ import za.co.mossco.myweatherapp.weatherdetail.WeatherDetailActivity;
 
 
 public class WeatherFragment extends Fragment implements WeatherContract.View {
-    WeatherRepository weatherRepository;
-    private WeatherPresenter weatherPresenter;
+    protected WeatherPresenter weatherPresenter;
     private RecyclerView weaklyWeatherRecyclerView;
-    private WeatherAdapter weatherAdapter;
     private ProgressDialog weatherLoadingProgress;
     public static String LOCATION = "Johannesburg";
 
@@ -50,25 +31,24 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     }
 
 
-    public static WeatherFragment newInstance() {
-        WeatherFragment fragment = new WeatherFragment();
-        return fragment;
-    }
+//    public static WeatherFragment newInstance() {
+//        WeatherFragment fragment = new WeatherFragment();
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        weatherRepository = new WeatherRepositoryImpl();
-        weatherPresenter = new WeatherPresenter(this, new WeatherRepositoryImpl());
+        weatherPresenter = new WeatherPresenter(this);
         weatherPresenter.loadWeather(LOCATION);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
-        weaklyWeatherRecyclerView = (RecyclerView) view.findViewById(R.id.weekly_weather_recyclerview);
+        weaklyWeatherRecyclerView = view.findViewById(R.id.weekly_weather_recyclerview);
 
         return view;
     }
@@ -76,7 +56,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
 
     @Override
     public void showWeather(java.util.List<WeatherResponse> weatherResponseList) {
-        weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(),weatherItemClickListener);
+        WeatherAdapter weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(), weatherItemClickListener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         weaklyWeatherRecyclerView.setLayoutManager(linearLayoutManager);
@@ -102,7 +82,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     WeatherItemClickListener weatherItemClickListener = new WeatherItemClickListener() {
         @Override
         public void onConsultantClicked(za.co.mossco.myweatherapp.model.bean.List clickedWeather) {
-            startActivity(WeatherDetailActivity.getInstance( getContext(),clickedWeather));
+            startActivity(WeatherDetailActivity.getInstance(getContext(), clickedWeather));
         }
     };
 

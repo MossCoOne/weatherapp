@@ -10,7 +10,7 @@ public interface WeatherRepository {
 
         void displayLoadedWeather(List<WeatherResponse> listList);
 
-        void onErrorOccurred(int errorCode);
+        void onErrorOccurred(String errorMessage);
     }
 
     void getWeatherByCityName(String cityName, WeatherDataCallback weatherDataCallback);

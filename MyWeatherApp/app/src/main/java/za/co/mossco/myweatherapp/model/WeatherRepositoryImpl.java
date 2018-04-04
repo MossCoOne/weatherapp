@@ -1,7 +1,7 @@
 package za.co.mossco.myweatherapp.model;
 
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +24,17 @@ public class WeatherRepositoryImpl implements WeatherRepository {
         weatherServiceApi.getWeatherByCity(cityName, Constants.APP_ID)
                 .enqueue(new Callback<WeatherResponse>() {
                     @Override
-                    public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                    public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
                         List<WeatherResponse> responseList = new ArrayList<>();
-                        if (response.isSuccessful() ) {
+                        if (response.isSuccessful()) {
                             responseList.add(response.body());
                             weatherDataCallback.displayLoadedWeather(responseList);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<WeatherResponse> call, Throwable t) {
-
+                    public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
+                        weatherDataCallback.onErrorOccurred(t.getMessage());
                     }
                 });
     }

@@ -4,7 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="action_settings">Refresh</string>
     <string name="weather_loading">Loading Weather</string>
-    <string name="please_wait_message">Please wait...</string>
+    <string name="please_wait_message">Please wait…</string>
     <string name="today_text">Today</string>
     <string name="tomorrow_text">Tomorrow</string>
     <string name="humidity_text">Humidity :</string>

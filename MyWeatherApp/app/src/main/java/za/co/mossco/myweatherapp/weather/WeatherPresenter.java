@@ -2,15 +2,16 @@ package za.co.mossco.myweatherapp.weather;
 
 
 import za.co.mossco.myweatherapp.model.WeatherRepository;
+import za.co.mossco.myweatherapp.model.WeatherRepositoryImpl;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 
 public class WeatherPresenter implements WeatherContract.UserActionsListener {
     //TODO Inject this with Dagger
-    WeatherRepository weatherRepository;
-    WeatherContract.View weatherView;
+    private WeatherRepository weatherRepository;
+    private WeatherContract.View weatherView;
 
-    public WeatherPresenter(WeatherContract.View weatherView, WeatherRepository weatherRepository) {
-        this.weatherRepository = weatherRepository;
+    WeatherPresenter(WeatherContract.View weatherView) {
+        weatherRepository = new WeatherRepositoryImpl();
         this.weatherView = weatherView;
     }
 
@@ -25,7 +26,7 @@ public class WeatherPresenter implements WeatherContract.UserActionsListener {
             }
 
             @Override
-            public void onErrorOccurred(int errorCode) {
+            public void onErrorOccurred(String errorMessage) {
 
             }
         });
