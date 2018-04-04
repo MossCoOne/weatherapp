@@ -31,7 +31,7 @@ public class WeatherPresenter implements WeatherContract.UserActionsListener {
 
             @Override
             public void onErrorOccurred(String errorMessage) {
-                weatherView.showErrorOccuredMessage(errorMessage);
+                weatherView.showErrorOccurredMessage(errorMessage);
             }
         });
     }

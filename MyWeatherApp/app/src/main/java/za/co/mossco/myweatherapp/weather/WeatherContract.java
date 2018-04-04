@@ -14,7 +14,7 @@ public interface WeatherContract {
 
         void showFailedToLoadWeatherErrorMessage();
 
-        void showErrorOccuredMessage(String errorMessage);
+        void showErrorOccurredMessage(String errorMessage);
     }
 
     interface UserActionsListener {

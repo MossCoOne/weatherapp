@@ -78,6 +78,16 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
         weatherLoadingProgress.dismiss();
     }
 
+    @Override
+    public void showFailedToLoadWeatherErrorMessage() {
+        //Failed to load weather screen
+    }
+
+    @Override
+    public void showErrorOccurredMessage(String errorMessage) {
+
+    }
+
 
     WeatherItemClickListener weatherItemClickListener = new WeatherItemClickListener() {
         @Override
