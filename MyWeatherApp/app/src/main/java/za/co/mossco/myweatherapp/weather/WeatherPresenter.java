@@ -21,13 +21,17 @@ public class WeatherPresenter implements WeatherContract.UserActionsListener {
         weatherRepository.getWeatherByCityName(cityName, new WeatherRepository.WeatherDataCallback() {
             @Override
             public void displayLoadedWeather(java.util.List<WeatherResponse> responseList) {
-                weatherView.showWeather(responseList);
-                weatherView.dismissProgressDialog();
+                if (!responseList.isEmpty()) {
+                    weatherView.showWeather(responseList);
+                    weatherView.dismissProgressDialog();
+                }else {
+                    weatherView.showFailedToLoadWeatherErrorMessage();
+                }
             }
 
             @Override
             public void onErrorOccurred(String errorMessage) {
-
+                weatherView.showErrorOccuredMessage(errorMessage);
             }
         });
     }

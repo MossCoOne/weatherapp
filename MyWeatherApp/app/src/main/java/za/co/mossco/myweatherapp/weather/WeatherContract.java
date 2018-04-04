@@ -11,6 +11,10 @@ public interface WeatherContract {
         void showProgressDialog();
 
         void dismissProgressDialog();
+
+        void showFailedToLoadWeatherErrorMessage();
+
+        void showErrorOccuredMessage(String errorMessage);
     }
 
     interface UserActionsListener {
