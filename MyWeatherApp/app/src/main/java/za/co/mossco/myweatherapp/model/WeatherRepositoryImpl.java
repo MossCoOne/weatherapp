@@ -28,7 +28,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
                         List<WeatherResponse> responseList = new ArrayList<>();
                         if (response.isSuccessful()) {
                             responseList.add(response.body());
-                            weatherDataCallback.displayLoadedWeather(responseList);
+                            weatherDataCallback.onSuccess(responseList);
                         }
                     }
 
