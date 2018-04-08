@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
@@ -19,9 +21,7 @@ import za.co.mossco.myweatherapp.weather.WeatherFragment;
 public class WeatherDetailActivity extends AppCompatActivity {
 
     private static String currentWeather = "CurrentWeather";
-    za.co.mossco.myweatherapp.model.bean.List currentWeatherList;
     za.co.mossco.myweatherapp.model.bean.List currentWeatherSeleted;
-    private Toolbar toolbar;
 
     public static Intent getInstance(Context context, za.co.mossco.myweatherapp.model.bean.List list) {
         Intent detailIntent = new Intent(context, WeatherDetailActivity.class);
@@ -41,12 +41,10 @@ public class WeatherDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_detail);
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.daily_weather));
-
-
         String jsonWeather = getIntent().getStringExtra(currentWeather);
         initializeUI(jsonWeather);
     }
@@ -54,26 +52,23 @@ public class WeatherDetailActivity extends AppCompatActivity {
 
     void initializeUI(String jsonWeather) {
         currentWeatherSeleted = new Gson().fromJson(jsonWeather, za.co.mossco.myweatherapp.model.bean.List.class);
-        TextView detailDay = (TextView) findViewById(R.id.detail_day);
-        detailDay.setText(DateUtil.getCurrentDayOfWeek(currentWeatherSeleted.getDt()) + " - " + WeatherFragment.LOCATION);
-        TextView detailDate = (TextView) findViewById(R.id.detail_date);
+        TextView detailDay = findViewById(R.id.detail_day);
+        detailDay.setText(String.format("%s - %s", DateUtil.getCurrentDayOfWeek(currentWeatherSeleted.getDt()), WeatherFragment.LOCATION));
+        TextView detailDate = findViewById(R.id.detail_date);
         detailDate.setText(DateUtil.getDayAndMonth(currentWeatherSeleted.getDt()));
-        TextView detailHighTemperature = (TextView) findViewById(R.id.detail_temperature_high);
-        detailHighTemperature.setText(DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMax()) + Constants.degreeSymbol);
-        TextView detailLowTemperature = (TextView) findViewById(R.id.detail_temperature_low);
-        detailLowTemperature.setText(DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMin()) + Constants.degreeSymbol);
-        TextView detailDescription = (TextView) findViewById(R.id.detail_description);
+        TextView detailHighTemperature = findViewById(R.id.detail_temperature_high);
+        detailHighTemperature.setText(String.format("%s%s", DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMax()), Constants.degreeSymbol));
+        TextView detailLowTemperature = findViewById(R.id.detail_temperature_low);
+        detailLowTemperature.setText(String.format("%s%s", DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMin()), Constants.degreeSymbol));
+        TextView detailDescription = findViewById(R.id.detail_description);
         detailDescription.setText(currentWeatherSeleted.getWeather().get(0).getDescription());
-        TextView detailHumidity = (TextView) findViewById(R.id.detail_humidity);
-        detailHumidity.setText(getString(R.string.humidity_text) + " " + String.valueOf(currentWeatherSeleted.getHumidity()));
-        TextView detailPressure = (TextView) findViewById(R.id.detail_pressure);
-        detailPressure.setText(getString(R.string.pressure_text) + " " + String.valueOf(currentWeatherSeleted.getPressure()));
-        TextView detailWindSpeed = (TextView) findViewById(R.id.detail_wind);
-        detailWindSpeed.setText(getString(R.string.wind_speed_text) + " " + String.valueOf(currentWeatherSeleted.getSpeed()));
-        ImageView detailImage = (ImageView) findViewById(R.id.detailDescriptionImage);
+        TextView detailHumidity = findViewById(R.id.detail_humidity);
+        detailHumidity.setText(String.format("%s %s", getString(R.string.humidity_text), String.valueOf(currentWeatherSeleted.getHumidity())));
+        TextView detailPressure = findViewById(R.id.detail_pressure);
+        detailPressure.setText(String.format("%s %s", getString(R.string.pressure_text), String.valueOf(currentWeatherSeleted.getPressure())));
+        TextView detailWindSpeed = findViewById(R.id.detail_wind);
+        detailWindSpeed.setText(String.format("%s %s", getString(R.string.wind_speed_text), String.valueOf(currentWeatherSeleted.getSpeed())));
+        ImageView detailImage = findViewById(R.id.detailDescriptionImage);
         detailImage.setImageResource(DateUtil.setImageIcon(currentWeatherSeleted.getWeather().get(0).getMain()));
-
     }
-
-
 }
