@@ -37,7 +37,7 @@ ext {
     javaxVersion = '1.0'
     gsonVersion = '2.4'
     daggerVersion = '2.9'
-    googlePlayServicesVersion = '11.8.0'
+    googlePlayServicesVersion = '12.0.1'
     constraintLayoutVersion = '1.0.2'
     mockitoVersion = '2.8.47'
 }
