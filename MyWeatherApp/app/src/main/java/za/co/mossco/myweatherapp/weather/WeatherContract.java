@@ -18,6 +18,6 @@ public interface WeatherContract {
     }
 
     interface UserActionsListener {
-        void loadWeather(String cityName);
+        void loadWeather(double latitude,double longitude);
     }
 }

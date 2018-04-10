@@ -20,8 +20,8 @@ public class WeatherRepositoryImpl implements WeatherRepository {
     private WeatherServiceApi weatherServiceApi = WeatherServiceApiClient.getInstance();
 
     @Override
-    public void getWeatherByCityName(String cityName, final WeatherDataCallback weatherDataCallback) {
-        weatherServiceApi.getWeatherByCity(cityName, Constants.APP_ID)
+    public void getWeatherByCityName(double latitude,double longitude, final WeatherDataCallback weatherDataCallback) {
+        weatherServiceApi.getWeatherByCity(latitude,longitude, Constants.APP_ID)
                 .enqueue(new Callback<WeatherResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {

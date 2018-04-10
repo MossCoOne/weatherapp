@@ -12,5 +12,5 @@ public interface WeatherRepository {
         void onErrorOccurred(String errorMessage);
     }
 
-    void getWeatherByCityName(String cityName, WeatherDataCallback weatherDataCallback);
+    void getWeatherByCityName(double latitude,double longitude, WeatherDataCallback weatherDataCallback);
 }

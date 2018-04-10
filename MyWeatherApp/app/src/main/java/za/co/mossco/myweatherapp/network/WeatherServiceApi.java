@@ -8,7 +8,8 @@ import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 
 public interface WeatherServiceApi {
     @GET("daily?")
-    Call<WeatherResponse> getWeatherByCity(@Query("q") String cityName,
+    Call<WeatherResponse> getWeatherByCity(@Query("lat") double latitude,
+                                           @Query("lon") double longitude,
                                            @Query("appid") String appId);
 }
 

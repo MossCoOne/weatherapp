@@ -16,9 +16,9 @@ public class WeatherPresenter implements WeatherContract.UserActionsListener {
     }
 
     @Override
-    public void loadWeather(String cityName) {
+    public void loadWeather(double latitude,double longitude) {
         weatherView.showProgressDialog();
-        weatherRepository.getWeatherByCityName(cityName, new WeatherRepository.WeatherDataCallback() {
+        weatherRepository.getWeatherByCityName(latitude,longitude, new WeatherRepository.WeatherDataCallback() {
             @Override
             public void onSuccess(java.util.List<WeatherResponse> responseList) {
                 if (!responseList.isEmpty()) {
