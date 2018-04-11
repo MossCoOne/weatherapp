@@ -12,4 +12,5 @@
     <string name="wind_speed_text">Wind Speed :</string>
     <string name="weekly_weather">Weekly Weather</string>
     <string name="daily_weather">Daily Weather</string>
+    <string name="ok">OK</string>
 </resources>

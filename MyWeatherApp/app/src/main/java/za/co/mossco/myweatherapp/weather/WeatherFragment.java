@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -38,19 +37,13 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     protected WeatherPresenter weatherPresenter;
     private RecyclerView weaklyWeatherRecyclerView;
     private ProgressDialog weatherLoadingProgress;
-    public static String LOCATION = "Johannesburg";
+    private String location;
 
     private FusedLocationProviderClient fusedLocationClient;
 
     public WeatherFragment() {
         // Required empty public constructor
     }
-
-
-//    public static WeatherFragment newInstance() {
-//        WeatherFragment fragment = new WeatherFragment();
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,13 +54,6 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     @Override
     public void onStart() {
         super.onStart();
-        if (!checkPermissions()) {
-            Log.i(TAG, "Inside onStart function; requesting permission when permission is not available");
-            requestPermissions();
-        } else {
-            Log.i(TAG, "Inside onStart function; getting location when permission is already available");
-            getLastLocation();
-        }
     }
 
     @Override
@@ -83,6 +69,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     @Override
     public void showWeather(java.util.List<WeatherResponse> weatherResponseList) {
         WeatherAdapter weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(), weatherItemClickListener);
+        location = weatherResponseList.get(0).getCity().getName();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         weaklyWeatherRecyclerView.setLayoutManager(linearLayoutManager);
@@ -118,12 +105,21 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     WeatherItemClickListener weatherItemClickListener = new WeatherItemClickListener() {
         @Override
         public void onConsultantClicked(za.co.mossco.myweatherapp.model.bean.List clickedWeather) {
-            startActivity(WeatherDetailActivity.getInstance(getActivity(), clickedWeather));
+            startActivity(WeatherDetailActivity.getInstance(getActivity(), clickedWeather, location));
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isFineLocationPermissionsGranted()) {
+            requestPermissions();
+        } else {
+            getLastLocation();
+        }
+    }
 
-    private boolean checkPermissions() {
+    private boolean isFineLocationPermissionsGranted() {
         int permissionState = ActivityCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION);
         return permissionState == PackageManager.PERMISSION_GRANTED;
@@ -149,35 +145,34 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
-            if (grantResults.length <= 0) {
-            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
-            } else {
-                Log.i(TAG, "User denied permission.");
-            }
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    requestPermissions();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
-        fusedLocationClient.getLastLocation()
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            Location location = task.getResult();
-                            String latitude = String.format("%s: %f", "Lati", location.getLatitude());
-                            String longitude = String.format("%s: %f", "Longi", location.getLongitude());
-                            Toast.makeText(getActivity(), latitude, Toast.LENGTH_LONG).show();
-                            Toast.makeText(getActivity(), longitude, Toast.LENGTH_LONG).show();
-                            weatherPresenter.loadWeather(location.getLatitude(), location.getLongitude());
-                        } else {
-                            Log.i(TAG, "Error while getting location");
-                            System.out.println(TAG + task.getException());
+        if (getActivity() != null) {
+            fusedLocationClient.getLastLocation()
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Location> task) {
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                Location location = task.getResult();
+                                weatherPresenter.loadWeather(location.getLatitude(), location.getLongitude());
+                            } else {
+                                Log.i(TAG, "Error while getting location");
+                                System.out.println(TAG + task.getException());
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
