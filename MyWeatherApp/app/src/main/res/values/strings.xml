@@ -13,4 +13,5 @@
     <string name="weekly_weather">Weekly Weather</string>
     <string name="daily_weather">Daily Weather</string>
     <string name="ok">OK</string>
+    <string name="weather_icon">Contains weather icon</string>
 </resources>

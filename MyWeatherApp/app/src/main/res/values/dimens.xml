@@ -9,7 +9,7 @@
     <dimen name="today_icon">96dp</dimen>
 
     <dimen name="list_icon">40dp</dimen>
-    <dimen name="forecast_text_size">20dp</dimen>
+    <dimen name="forecast_text_size">20sp</dimen>
     <dimen name="detail_temperature_high_text_size">100dp</dimen>
     <dimen name="detail_temperature_low_text_size">60dp</dimen>
 
@@ -32,6 +32,12 @@
     <dimen name="list_item_low_temperature_text_view_size">48dp</dimen>
 
     <dimen name="list_item_date_left_margin">16dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
 
     <dimen name="list_item_date_start_margin">@dimen/list_item_date_left_margin</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
