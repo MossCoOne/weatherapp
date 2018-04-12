@@ -45,9 +45,11 @@ public class WeatherDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.daily_weather));
+        getSupportActionBar().setTitle("");
         String jsonWeather = getIntent().getStringExtra(currentWeather);
         String location = getIntent().getStringExtra(currentLocation);
+        TextView toolBarTitle = findViewById(R.id.tv_tool_bar_title);
+        toolBarTitle.setText(getString(R.string.daily_weather));
         initializeUI(jsonWeather, location);
     }
 
