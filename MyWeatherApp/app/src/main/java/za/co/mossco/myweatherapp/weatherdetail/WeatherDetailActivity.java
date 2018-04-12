@@ -70,7 +70,7 @@ public class WeatherDetailActivity extends AppCompatActivity {
         detailPressure.setText(String.format("%s %s", getString(R.string.pressure_text), String.valueOf(currentWeatherSeleted.getPressure())));
         TextView detailWindSpeed = findViewById(R.id.detail_wind);
         detailWindSpeed.setText(String.format("%s %s", getString(R.string.wind_speed_text), String.valueOf(currentWeatherSeleted.getSpeed())));
-        ImageView detailImage = findViewById(R.id.detailDescriptionImage);
+        ImageView detailImage = findViewById(R.id.im_detail_description_image);
         detailImage.setImageResource(DateUtil.setImageIcon(currentWeatherSeleted.getWeather().get(0).getMain()));
     }
 }
