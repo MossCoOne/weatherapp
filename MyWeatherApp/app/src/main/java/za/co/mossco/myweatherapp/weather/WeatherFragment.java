@@ -24,6 +24,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
 import za.co.mossco.myweatherapp.weather.adapter.WeatherAdapter;
@@ -61,7 +63,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         weaklyWeatherRecyclerView = view.findViewById(R.id.weekly_weather_recyclerview);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
         return view;
     }
 
@@ -120,14 +122,14 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     }
 
     private boolean isFineLocationPermissionsGranted() {
-        int permissionState = ActivityCompat.checkSelfPermission(getActivity(),
+        int permissionState = ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
                 Manifest.permission.ACCESS_FINE_LOCATION);
         return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermissions() {
         boolean shouldProvideRationale =
-                ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()),
                         Manifest.permission.ACCESS_FINE_LOCATION);
 
         if (shouldProvideRationale) {
@@ -138,7 +140,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     }
 
     private void startLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(getActivity(),
+        ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 REQUEST_PERMISSIONS_REQUEST_CODE);
     }
