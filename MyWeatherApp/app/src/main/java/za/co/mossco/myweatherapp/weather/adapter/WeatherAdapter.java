@@ -37,10 +37,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
-        final za.co.mossco.myweatherapp.model.bean.List currentWeather = dailyWeatherList.get(position);
-        if (position == 0) {
+        int selectedIndex = position + 1;
+        final za.co.mossco.myweatherapp.model.bean.List currentWeather = dailyWeatherList.get(selectedIndex);
+        if (selectedIndex == 0) {
             holder.dateTextView.setText(R.string.today_text);
-        } else if (position == 1) {
+        } else if (selectedIndex == 1) {
             holder.dateTextView.setText(R.string.tomorrow_text);
         } else {
             holder.dateTextView.setText(DateUtil.getCurrentDayOfWeek(currentWeather.getDt()));
@@ -58,7 +59,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
 
     @Override
     public int getItemCount() {
-        return dailyWeatherList.size();
+        return dailyWeatherList.size() - 1;
     }
 
     public interface WeatherItemClickListener {
