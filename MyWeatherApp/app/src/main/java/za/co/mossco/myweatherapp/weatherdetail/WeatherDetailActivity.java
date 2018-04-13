@@ -10,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
+import za.co.mossco.myweatherapp.utility.StringsUtil;
 
 public class WeatherDetailActivity extends AppCompatActivity {
 
@@ -73,6 +75,10 @@ public class WeatherDetailActivity extends AppCompatActivity {
         TextView detailWindSpeed = findViewById(R.id.detail_wind);
         detailWindSpeed.setText(String.format("%s %s", getString(R.string.wind_speed_text), String.valueOf(currentWeatherSeleted.getSpeed())));
         ImageView detailImage = findViewById(R.id.im_detail_description_image);
-        detailImage.setImageResource(DateUtil.setImageIcon(currentWeatherSeleted.getWeather().get(0).getMain()));
+        Picasso.get()
+                .load(StringsUtil.getIconUrl(currentWeatherSeleted.getWeather().get(0).getIcon()))
+                .error(R.drawable.ic_error)
+                .placeholder(R.drawable.ic_image_placeholder)
+                .into(detailImage);
     }
 }

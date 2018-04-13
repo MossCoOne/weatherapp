@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
+import za.co.mossco.myweatherapp.utility.StringsUtil;
 
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
@@ -45,7 +48,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
         holder.weatherDescriptionTextView.setText(currentWeather.getWeather().get(0).getDescription());
         holder.highTemperatureTextView.setText(String.format("%s%s", DateUtil.toCelsius(currentWeather.getTemp().getMax()), Constants.degreeSymbol));
         holder.lowTemperatureTextView.setText(String.format("%s%s", DateUtil.toCelsius(currentWeather.getTemp().getMin()), Constants.degreeSymbol));
-        holder.weatherIconImageView.setImageResource(DateUtil.setImageIcon(currentWeather.getWeather().get(0).getMain()));
+        Picasso.get()
+                .load(StringsUtil.getIconUrl(currentWeather.getWeather().get(0).getIcon()))
+                .placeholder(R.drawable.ic_image_placeholder)
+                .error(R.drawable.ic_error)
+                .into(holder.weatherIconImageView);
         holder.setCurrentConsultant(currentWeather);
     }
 

@@ -40,4 +40,5 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
     implementation "com.google.android.gms:play-services-location:$rootProject.ext.googlePlayServicesVersion"
     implementation "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
 }
