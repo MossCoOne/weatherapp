@@ -1,10 +1,9 @@
 package za.co.mossco.myweatherapp.weather.adapter;
 
-import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
@@ -12,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import za.co.mossco.myweatherapp.R;
+import za.co.mossco.myweatherapp.databinding.WeatherItemBinding;
 import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
 import za.co.mossco.myweatherapp.utility.StringsUtil;
@@ -29,10 +29,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     @NonNull
     @Override
     public WeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.weather_item, parent, false);
-        return new WeatherViewHolder(view, weatherItemClickListener);
+
+        WeatherItemBinding weatherItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext())
+                , R.layout.weather_item, parent, false);
+        return new WeatherViewHolder(weatherItemBinding, weatherItemClickListener);
     }
 
     @Override
