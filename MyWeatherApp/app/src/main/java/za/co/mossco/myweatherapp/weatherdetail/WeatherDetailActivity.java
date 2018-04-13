@@ -2,11 +2,11 @@ package za.co.mossco.myweatherapp.weatherdetail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 import za.co.mossco.myweatherapp.R;
+import za.co.mossco.myweatherapp.databinding.ActivityWeatherDetailBinding;
 import za.co.mossco.myweatherapp.utility.Constants;
 import za.co.mossco.myweatherapp.utility.DateUtil;
 import za.co.mossco.myweatherapp.utility.StringsUtil;
@@ -24,6 +25,8 @@ public class WeatherDetailActivity extends AppCompatActivity {
     private static String currentWeather = "current_weather";
     private static String currentLocation = "current_location";
     za.co.mossco.myweatherapp.model.bean.List currentWeatherSeleted;
+    // private WeatherDetailActivityB
+    private ActivityWeatherDetailBinding activityWeatherDetailBinding;
 
     public static Intent getInstance(Context context, za.co.mossco.myweatherapp.model.bean.List list, String location) {
         Intent detailIntent = new Intent(context, WeatherDetailActivity.class);
@@ -43,7 +46,7 @@ public class WeatherDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weather_detail);
+        activityWeatherDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_weather_detail);
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -58,27 +61,18 @@ public class WeatherDetailActivity extends AppCompatActivity {
 
     void initializeUI(String jsonWeather, String location) {
         currentWeatherSeleted = new Gson().fromJson(jsonWeather, za.co.mossco.myweatherapp.model.bean.List.class);
-        TextView detailDay = findViewById(R.id.detail_day);
-        detailDay.setText(String.format("%s - %s", DateUtil.getCurrentDayOfWeek(currentWeatherSeleted.getDt()), location));
-        TextView detailDate = findViewById(R.id.detail_date);
-        detailDate.setText(DateUtil.getDayAndMonth(currentWeatherSeleted.getDt()));
-        TextView detailHighTemperature = findViewById(R.id.detail_temperature_high);
-        detailHighTemperature.setText(String.format("%s%s", DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMax()), Constants.degreeSymbol));
-        TextView detailLowTemperature = findViewById(R.id.detail_temperature_low);
-        detailLowTemperature.setText(String.format("%s%s", DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMin()), Constants.degreeSymbol));
-        TextView detailDescription = findViewById(R.id.detail_description);
-        detailDescription.setText(currentWeatherSeleted.getWeather().get(0).getDescription());
-        TextView detailHumidity = findViewById(R.id.detail_humidity);
-        detailHumidity.setText(String.format("%s %s", getString(R.string.humidity_text), String.valueOf(currentWeatherSeleted.getHumidity())));
-        TextView detailPressure = findViewById(R.id.detail_pressure);
-        detailPressure.setText(String.format("%s %s", getString(R.string.pressure_text), String.valueOf(currentWeatherSeleted.getPressure())));
-        TextView detailWindSpeed = findViewById(R.id.detail_wind);
-        detailWindSpeed.setText(String.format("%s %s", getString(R.string.wind_speed_text), String.valueOf(currentWeatherSeleted.getSpeed())));
-        ImageView detailImage = findViewById(R.id.im_detail_description_image);
+        activityWeatherDetailBinding.detailDay.setText(String.format("%s - %s", DateUtil.getCurrentDayOfWeek(currentWeatherSeleted.getDt()), location));
+        activityWeatherDetailBinding.detailDate.setText(DateUtil.getDayAndMonth(currentWeatherSeleted.getDt()));
+        activityWeatherDetailBinding.detailTemperatureHigh.setText(String.format("%s%s", DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMax()), Constants.degreeSymbol));
+        activityWeatherDetailBinding.detailTemperatureLow.setText(String.format("%s%s", DateUtil.toCelsius(currentWeatherSeleted.getTemp().getMin()), Constants.degreeSymbol));
+        activityWeatherDetailBinding.detailDescription.setText(currentWeatherSeleted.getWeather().get(0).getDescription());
+        activityWeatherDetailBinding.detailHumidity.setText(String.format("%s %s", getString(R.string.humidity_text), String.valueOf(currentWeatherSeleted.getHumidity())));
+        activityWeatherDetailBinding.detailPressure.setText(String.format("%s %s", getString(R.string.pressure_text), String.valueOf(currentWeatherSeleted.getPressure())));
+        activityWeatherDetailBinding.detailWind.setText(String.format("%s %s", getString(R.string.wind_speed_text), String.valueOf(currentWeatherSeleted.getSpeed())));
         Picasso.get()
                 .load(StringsUtil.getIconUrl(currentWeatherSeleted.getWeather().get(0).getIcon()))
                 .error(R.drawable.ic_error)
                 .placeholder(R.drawable.ic_image_placeholder)
-                .into(detailImage);
+                .into(activityWeatherDetailBinding.imDetailDescriptionImage);
     }
 }
