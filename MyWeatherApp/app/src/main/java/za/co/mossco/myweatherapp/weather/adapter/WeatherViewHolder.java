@@ -6,24 +6,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import za.co.mossco.myweatherapp.R;
+import za.co.mossco.myweatherapp.databinding.WeatherItemBinding;
 import za.co.mossco.myweatherapp.weather.adapter.WeatherAdapter.WeatherItemClickListener;
 
 public class WeatherViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView weatherIconImageView;
     TextView dateTextView, weatherDescriptionTextView, highTemperatureTextView, lowTemperatureTextView;
-    WeatherItemClickListener weatherItemClickListener;
-    za.co.mossco.myweatherapp.model.bean.List currentWeatherList;
+    private WeatherItemClickListener weatherItemClickListener;
+    private za.co.mossco.myweatherapp.model.bean.List currentWeatherList;
 
-    public WeatherViewHolder(View itemView,WeatherItemClickListener weatherItemClickListener) {
-        super(itemView);
-        weatherIconImageView = (ImageView) itemView.findViewById(R.id.weather_icon);
-        dateTextView = (TextView) itemView.findViewById(R.id.date);
-        weatherDescriptionTextView = (TextView) itemView.findViewById(R.id.weather_description);
-        highTemperatureTextView = (TextView) itemView.findViewById(R.id.high_temperature);
-        lowTemperatureTextView = (TextView) itemView.findViewById(R.id.low_temperature);
+
+    WeatherViewHolder(WeatherItemBinding weatherItemBinding, WeatherItemClickListener weatherItemClickListener) {
+        super(weatherItemBinding.getRoot());
+        weatherIconImageView = weatherItemBinding.weatherIcon;
+        dateTextView = weatherItemBinding.date;
+        weatherDescriptionTextView = weatherItemBinding.weatherDescription;
+        highTemperatureTextView = weatherItemBinding.highTemperature;
+        lowTemperatureTextView = weatherItemBinding.lowTemperature;
         this.weatherItemClickListener = weatherItemClickListener;
-        itemView.setOnClickListener(this);
+        weatherItemBinding.getRoot().setOnClickListener(this);
     }
 
     public void setCurrentConsultant(za.co.mossco.myweatherapp.model.bean.List currentWeatherList) {
