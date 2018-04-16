@@ -18,11 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.Objects;
 
 import za.co.mossco.myweatherapp.R;
 import za.co.mossco.myweatherapp.model.bean.WeatherResponse;
@@ -38,6 +41,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     private RecyclerView weaklyWeatherRecyclerView;
     private ProgressDialog weatherLoadingProgress;
     private String location;
+    private TextView currentLocatTextView;
 
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -61,7 +65,8 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         weaklyWeatherRecyclerView = view.findViewById(R.id.weekly_weather_recyclerview);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
+        currentLocatTextView = view.findViewById(R.id.tv_current_location);
         return view;
     }
 
@@ -70,6 +75,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     public void showWeather(java.util.List<WeatherResponse> weatherResponseList) {
         WeatherAdapter weatherAdapter = new WeatherAdapter(weatherResponseList.get(0).getList(), weatherItemClickListener);
         location = weatherResponseList.get(0).getCity().getName();
+        currentLocatTextView.setText(location);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         weaklyWeatherRecyclerView.setLayoutManager(linearLayoutManager);
@@ -120,14 +126,14 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     }
 
     private boolean isFineLocationPermissionsGranted() {
-        int permissionState = ActivityCompat.checkSelfPermission(getActivity(),
+        int permissionState = ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
                 Manifest.permission.ACCESS_FINE_LOCATION);
         return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermissions() {
         boolean shouldProvideRationale =
-                ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()),
                         Manifest.permission.ACCESS_FINE_LOCATION);
 
         if (shouldProvideRationale) {
@@ -138,7 +144,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     }
 
     private void startLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(getActivity(),
+        ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 REQUEST_PERMISSIONS_REQUEST_CODE);
     }

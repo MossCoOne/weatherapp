@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    app:titleTextColor="@color/colorWhite"
     android:elevation="4dp"
-    android:minHeight="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
+    android:minHeight="?attr/actionBarSize"
+    app:titleTextColor="@color/primary_text">
+
+    <TextView
+        android:id="@+id/tv_tool_bar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="@dimen/forecast_text_size" />
+</android.support.v7.widget.Toolbar>
