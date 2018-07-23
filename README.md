@@ -4,8 +4,8 @@ This is a simple app that provides you with a 7 days weekly weather updates. The
 
 # Here are the screenshots below
 
-![Settings Window](https://github.com/MossCoOne/weatherapp/blob/master/MyWeatherApp/images/detail.png)  
+![Settings Window](https://github.com/MossCoOne/weatherapp/blob/master/MyWeatherApp/images/daily.jpg)  
 
 # Weekly view
 
-![Weekly Weather](https://github.com/MossCoOne/weatherapp/blob/master/MyWeatherApp/images/weekly.png)
+![Weekly Weather](https://github.com/MossCoOne/weatherapp/blob/master/MyWeatherApp/images/weekly.jpg)
