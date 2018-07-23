@@ -13,6 +13,7 @@
         android:id="@+id/tv_tool_bar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
         android:fontFamily="sans-serif-condensed"
         android:textSize="@dimen/forecast_text_size" />
 </android.support.v7.widget.Toolbar>
