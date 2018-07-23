@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_16"
         android:fontFamily="sans-serif-condensed"
-        android:text="Location Midrand"
+        tools:text="Location Midrand"
         android:textColor="@color/primary_text"
         android:textSize="@dimen/forecast_text_size" />
 
